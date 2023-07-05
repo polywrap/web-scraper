@@ -1,0 +1,6 @@
+#import { Module } into Http from "ens/wraps.eth:http@1.1.0"
+
+type Module {
+  get_text(url: String!): String!
+  get_links(uri: String!): String!
+}
