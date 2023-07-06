@@ -4,7 +4,7 @@ import path from "path";
 
 jest.setTimeout(60000);
 
-describe("Template Wrapper End to End Tests", () => {
+describe("Module Wrapper End to End Tests", () => {
 
   const client: PolywrapClient = new PolywrapClient();
   let wrapperUri: string;
@@ -15,17 +15,31 @@ describe("Template Wrapper End to End Tests", () => {
     wrapperUri = `fs/${wrapperPath}/build`;
   })
 
-  it("calls sampleMethod", async () => {
-    const expected: string = "polywrap";
+  it("calls getText", async () => {
+    const expectedUrl: string = "http://polywrap.io";
 
-    const result = await client.invoke<App.Template_SampleResult>({
+    const result = await client.invoke<App.Module_GetTextResult>({
       uri: wrapperUri,
-      method: "sampleMethod",
-      args: { arg: expected }
+      method: "getText",
+      args: { url: expectedUrl }
     });
-
+    console.log(result)
     expect(result.ok).toBeTruthy();
     if (!result.ok) return;
-    expect(result.value.result).toEqual(expected);
+    expect(result.value.text).toBeDefined();
+  });
+
+  it("calls getLinks", async () => {
+    const expectedUrl: string = "http://polywrap.io";
+
+    const result = await client.invoke<App.Module_GetLinksResult>({
+      uri: wrapperUri,
+      method: "getLinks",
+      args: { uri: expectedUrl }
+    });
+    console.log(result)
+    expect(result.ok).toBeTruthy();
+    if (!result.ok) return;
+    expect(result.value.links).toBeDefined();
   });
 });
