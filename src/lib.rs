@@ -8,7 +8,9 @@ pub mod wrap;
 pub use wrap::*;
 
 fn extract_text(element: &ElementRef) -> String {
-    element.text().collect::<Vec<_>>().concat()
+    let text: String = element.text().collect::<Vec<_>>().join(" ");
+    let text = text.replace("\n", " ").trim().to_string(); // Replace newline characters and trim spaces
+    text
 }
 
 impl ModuleTrait for Module {
@@ -38,7 +40,7 @@ impl ModuleTrait for Module {
 
         Ok(links.join(", ")) // Convert the Vec<String> into a single String
     }
-    
+  
     fn get_text(args: ArgsGetText) -> Result<String, String> {
         let result = HttpModule::get(&ArgsGet {
             url: args.url.clone(),
@@ -57,16 +59,19 @@ impl ModuleTrait for Module {
         // Update the selectors to target specific class
         let selectors = vec!["p", "h1"];
 
-        let mut text = String::new();
-        
+        let mut text_vec: Vec<String> = Vec::new();  // Initialize the text_vec variable
+    
         for selector in selectors {
             let selector = Selector::parse(selector).unwrap();
             for element in document.select(&selector) {
-                text.push_str(&extract_text(&element));
-                text.push_str(" ");
+                let text = extract_text(&element);
+                if !text.starts_with(".css") { // Only add the text if it doesn't start with ".css"
+                    text_vec.push(text);
+                    text_vec.push(" ".to_string());  // push space as string
+                }
             }
         }
         
-        Ok(text.trim().to_string()) // Trim leading and trailing whitespaces
+        Ok(text_vec.join(" ").trim().to_string()) // Trim leading and trailing whitespaces
     }
 }
