@@ -12,4 +12,8 @@ module.exports = {
   testPathIgnorePatterns: [
     "/.polywrap/"
   ],
-};
+  transform: {
+    '^.+\\.ts?$': ['ts-jest', {
+     // ts-jest configuration here
+    }],
+  },};

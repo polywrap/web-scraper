@@ -1,11 +1,15 @@
 use polywrap_wasm_rs::Map;
 use wrap::{*, imported::ArgsGet};
-use scraper::{Html, Selector};
+use scraper::{Html, Selector, ElementRef};
 use imported::http_module::HttpModule;
 use wrap::imported::{HttpResponseType, HttpRequest};
 
 pub mod wrap;
 pub use wrap::*;
+
+fn extract_text(element: &ElementRef) -> String {
+    element.text().collect::<Vec<_>>().concat()
+}
 
 impl ModuleTrait for Module {
     fn get_links(args: ArgsGetLinks) -> Result<String, String> {
@@ -32,10 +36,9 @@ impl ModuleTrait for Module {
             }
         }
 
-        // Convert the Vec<String> into a single String to match the function signature
-        Ok(links.join(", "))
+        Ok(links.join(", ")) // Convert the Vec<String> into a single String
     }
-
+    
     fn get_text(args: ArgsGetText) -> Result<String, String> {
         let result = HttpModule::get(&ArgsGet {
             url: args.url.clone(),
@@ -50,14 +53,20 @@ impl ModuleTrait for Module {
         })?;
         
         let document = Html::parse_document(&result.unwrap().body.unwrap());
-        let body = Selector::parse("body").unwrap();
+
+        // Update the selectors to target specific class
+        let selectors = vec!["p", "h1"];
 
         let mut text = String::new();
-
-        for element in document.select(&body) {
-            text.push_str(&element.inner_html());
+        
+        for selector in selectors {
+            let selector = Selector::parse(selector).unwrap();
+            for element in document.select(&selector) {
+                text.push_str(&extract_text(&element));
+                text.push_str(" ");
+            }
         }
-
-        Ok(text)
+        
+        Ok(text.trim().to_string()) // Trim leading and trailing whitespaces
     }
 }
