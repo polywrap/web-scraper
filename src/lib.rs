@@ -57,7 +57,7 @@ impl ModuleTrait for Module {
         let document = Html::parse_document(&result.unwrap().body.unwrap());
 
         // Update the selectors to target specific class
-        let selectors = vec!["p", "h1"];
+        let selectors = vec!["p", "h1", "h2", "h3", "h4", "h5", "h6", "div", "span"];
 
         let mut text_vec: Vec<String> = Vec::new();  // Initialize the text_vec variable
     
