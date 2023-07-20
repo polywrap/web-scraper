@@ -1,10 +1,15 @@
-name: template-wasm-rs
-format: 0.1.0
-validation: "./polywrap.test.cue"
+format: "0.2.0"
+name: "web-scraper"
 jobs:
-  sampleMethod:
+  get_links: 
     steps:
-      - uri: fs/build
-        method: sampleMethod
-        args:
-          arg: "polywrap"
+    - uri: "wrap://ipfs/Qma2FKuC3sy6rdD9eoCHAvpdibcxZotMTpa29DvnmHVK1s"
+      method: "get_links"
+      args: 
+        uri: "https://polywrap.io"
+  get_text:
+    steps:
+    - uri: "wrap://ipfs/Qma2FKuC3sy6rdD9eoCHAvpdibcxZotMTpa29DvnmHVK1s"
+      method: "get_text"
+      args:
+        url: "https://polywrap.io"
