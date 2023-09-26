@@ -1,5 +1,5 @@
 [package]
-name = "template-wasm-rs"
+name = "web-scraper"
 version = "0.1.0"
 description = "A Polywrap Wasm wrapper template written in Rust"
 authors = ["Polywrap"]
