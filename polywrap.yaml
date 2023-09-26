@@ -1,6 +1,6 @@
 format: 0.3.0
 project:
-  name: template-wasm-rs
+  name: web-scraper
   type: wasm/rust
 source:
   module: ./Cargo.toml
