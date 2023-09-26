@@ -1,4 +1,4 @@
-#import { Module } into Http from "ens/wraps.eth:http@1.1.0"
+#import { Module } into Http from "wrapscan.io/polywrap/http@1.0"
 
 type Module {
   get_text(url: String!): String!
