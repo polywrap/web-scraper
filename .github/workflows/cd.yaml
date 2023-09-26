@@ -1,4 +1,4 @@
-name: ipfs-http-client-cd
+name: web-scraper-cd
 
 on:
   pull_request:
