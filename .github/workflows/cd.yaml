@@ -18,11 +18,23 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: Read .nvmrc
+        run: echo ::set-output name=NVMRC::$(cat .nvmrc)
+        id: nvm
+
+      - name: Setup Node.js
+        uses: actions/setup-node@master
+        with:
+          node-version: '${{ steps.nvm.outputs.NVMRC }}'
+
+      - name: Install dependencies
+        run: yarn install --nonInteractive --frozen-lockfile --prefer-offline
+
       - name: Build
-        run: npx polywrap build
+        run: yarn build
 
       - name: Deploy
-        run: npx polywrap deploy
+        run: yarn deploy
         env:
           POLYWRAP_WRAPSCAN_AUTH_HEADER_PROD: ${{secrets.POLYWRAP_WRAPSCAN_AUTH_HEADER_PROD}}
 
