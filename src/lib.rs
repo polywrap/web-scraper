@@ -4,7 +4,7 @@ use imported::http_module::HttpModule;
 use wrap::imported::{HttpResponseType, HttpRequest};
 
 pub mod wrap;
-pub use wrap::*;
+pub use wrap::prelude::*;
 
 fn extract_text(element: &ElementRef) -> String {
     let text: String = element.text().collect::<Vec<_>>().join(" ");

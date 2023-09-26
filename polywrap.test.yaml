@@ -3,13 +3,13 @@ name: "web-scraper"
 jobs:
   get_links: 
     steps:
-    - uri: "wrap://ipfs/Qma2FKuC3sy6rdD9eoCHAvpdibcxZotMTpa29DvnmHVK1s"
+    - uri: "wrap://ipfs/QmSAiRST1WxJ4q3JxEPgGJvedZa3mQ8ym1RbL9SKJGnVsd"
       method: "get_links"
       args: 
         uri: "https://polywrap.io"
   get_text:
     steps:
-    - uri: "wrap://ipfs/Qma2FKuC3sy6rdD9eoCHAvpdibcxZotMTpa29DvnmHVK1s"
+    - uri: "wrap://ipfs/QmSAiRST1WxJ4q3JxEPgGJvedZa3mQ8ym1RbL9SKJGnVsd"
       method: "get_text"
       args:
         url: "https://polywrap.io"
