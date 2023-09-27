@@ -1,15 +1,71 @@
-# Polywrap Wasm Wrapper Template
-A simple starter template for a Rust Wasm wrapper. For more information on how this project works, and a step by step on how to extend its behavior, see the documentation [here](https://docs.polywrap.io/).
+# Web-Scraper
+A wrap of the popular [scraper](https://crates.io/crates/scraper) crate.
 
-# How To Run
+## Codegen
+`polywrap.graphql`:
+```graphql
+#import * into WebScraper from "wrapscan.io/polywrap/web-scraper@1"
+```
 
-## Install Dependencies
-`nvm install && nvm use`  
-`yarn`  
+`polywrap.yaml`:
+```yaml
+format: 0.3.0
+project:
+  name: my-app
+  type: app/typescript|python|rust|kotlin|swift
+source:
+  schema: ./polywrap.graphql
+```
 
-## Codegen & Build
-`yarn codegen`  
-`yarn build`  
+Codegen:
+```bash
+$ polywrap codegen
+```
 
-## Test
-`yarn test`  
+## Run
+
+`app/typescript`:
+```typescript
+const webScraper = new WebScraper();
+
+await webScraper.get_text({
+  url: "...",
+});
+```
+
+`app/python`:
+```python
+web_scraper = WebScraper()
+
+result = web_scraper.get_text({
+    "url": "..."
+})
+```
+
+`app/rust`:
+```rust
+let web_scraper = WebScraper::new();
+
+let result = web_scraper.get_text(
+    &WebScraperArgsGetText{
+        url: "..."
+    }
+).unwrap();
+```
+
+`app/kotlin`:
+```kotlin
+val web_scraper = WebScraper(client)
+
+val result = web_scraper.get_text(
+  WebScraperArgsGetText("...")
+).getOrThrow()
+```
+
+`app/swift`:
+```swift
+let web_scraper = WebScraper()
+try? web_scraper.get_text(
+  args: WebScraperArgsGetText(url: "...")
+)
+```

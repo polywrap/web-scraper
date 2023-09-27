@@ -1,9 +1,9 @@
-format: 0.3.0
+format: 0.4.0
 project:
   name: sample-typescript-type-generation
   type: app/typescript
 source:
   schema: ./schema.graphql
   import_abis:
-    - uri: "wrap://ens/sample.eth"
+    - uri: "wrap://wrapscan.io/polywrap/web-scraper"
       abi: "../../../build/wrap.info"
