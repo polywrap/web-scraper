@@ -2,5 +2,5 @@
 
 type Module {
   get_text(url: String!): String!
-  get_links(url: String!): String!
+  get_links(url: String!): [String!]!
 }
