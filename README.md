@@ -56,9 +56,9 @@ let result = web_scraper.get_text(
 
 `app/kotlin`:
 ```kotlin
-val web_scraper = WebScraper(client)
+val webScraper = WebScraper(client)
 
-val result = web_scraper.get_text(
+val result = webScraper.get_text(
   WebScraperArgsGetText("...")
 ).getOrThrow()
 ```
