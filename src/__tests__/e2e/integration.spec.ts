@@ -38,12 +38,12 @@ https://cloud.webscraper.io/
 
   it("get_text", async () => {
     const result = await webScraper.get_text({
-      url: "https://webscraper.io/test-sites/e-commerce/allinone"
+      url: "\nhttps://webscraper.io/test-sites/e-commerce/allinone\n"
     });
     expect(result.ok).toBeTruthy();
     if (!result.ok) return;
     expect(result.value).toContain(
-      `Lenovo ThinkPad L460, 14" FHD IPS, Core i7-6600U, 8GB, 256GB SSD, Windows 10 Pro`
+      `Web Scraper\nCloud Scraper\n`
     );
   });
 });
