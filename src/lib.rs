@@ -1,19 +1,13 @@
 use wrap::{*, imported::ArgsGet};
-use scraper::{Html, Selector, ElementRef};
+use scraper::{Html, Selector};
 use imported::http_module::HttpModule;
 use wrap::imported::{HttpResponseType, HttpRequest};
 
 pub mod wrap;
 pub use wrap::prelude::*;
 
-fn extract_text(element: &ElementRef) -> String {
-    let text: String = element.text().collect::<Vec<_>>().join(" ");
-    let text = text.replace("\n", " ").trim().to_string();
-    text
-}
-
 impl ModuleTrait for Module {
-    fn get_links(args: ArgsGetLinks) -> Result<String, String> {
+    fn get_links(args: ArgsGetLinks) -> Result<Vec<String>, String> {
         let result = HttpModule::get(&ArgsGet {
             url: args.url.clone(),
             request: Some(HttpRequest{
@@ -26,7 +20,7 @@ impl ModuleTrait for Module {
             })
         })?;
 
-        let document = Html::parse_document(&result.unwrap().body.unwrap()); 
+        let document = Html::parse_document(&result.unwrap().body.unwrap());
         let selector = Selector::parse("a[href]").unwrap();
 
         let mut links = Vec::new();
@@ -37,7 +31,7 @@ impl ModuleTrait for Module {
             }
         }
 
-        Ok(links.join("\n"))
+        Ok(links)
     }
 
     fn get_text(args: ArgsGetText) -> Result<String, String> {
@@ -52,24 +46,20 @@ impl ModuleTrait for Module {
                 form_data: None,
             })
         })?;
-        
+
         let document: Html = Html::parse_document(&result.unwrap().body.unwrap());
+        let selector = Selector::parse("p,h1,h2,h3,h4,h5,h6,div,span").unwrap();
 
-        let selectors = vec!["p", "h1", "h2", "h3", "h4", "h5", "h6", "div", "span"];
+        let mut text: Vec<String> = vec!();
 
-        let mut text_vec: Vec<String> = Vec::new();
-
-        for selector in selectors {
-            let selector = Selector::parse(selector).unwrap();
-            for element in document.select(&selector) {
-                let text = extract_text(&element);
-
-                if !text.starts_with(".css") && !text.starts_with("html") {
-                    text_vec.push(text);
+        for element in document.select(&selector) {
+            for el in element.text().collect::<Vec<_>>() {
+                if !el.starts_with(".css") && !el.starts_with("html") {
+                    text.push(el.trim().to_string());
                 }
             }
         }
 
-        Ok(text_vec.join("\n"))
+        Ok(text.join("\n"))
     }
 }
