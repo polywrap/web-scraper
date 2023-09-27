@@ -1,5 +1,5 @@
 format: 0.4.0
-primaryJobName: ipfs_deploy
+primaryJobName: http_deploy
 jobs:
   ipfs_deploy:
     steps:
