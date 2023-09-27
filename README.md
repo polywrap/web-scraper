@@ -1,7 +1,8 @@
 # Web-Scraper
 A wrap of the popular [scraper](https://crates.io/crates/scraper) crate.
 
-## Codegen
+## Integrate
+### 1. Polywrap Setup
 `polywrap.graphql`:
 ```graphql
 #import * into WebScraper from "wrapscan.io/polywrap/web-scraper@1"
@@ -22,7 +23,7 @@ Codegen:
 $ polywrap codegen
 ```
 
-## Run
+### 2. Run The Wrap
 
 `app/typescript`:
 ```typescript
