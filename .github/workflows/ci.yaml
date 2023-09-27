@@ -17,7 +17,6 @@ jobs:
       - name: Read .nvmrc
         run: echo ::set-output name=NVMRC::$(cat .nvmrc)
         id: nvm
-        working-directory: ./wraps/ipfs-http-client
 
       - name: Setup Node.js
         uses: actions/setup-node@master
