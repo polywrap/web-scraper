@@ -15,7 +15,7 @@ fn extract_text(element: &ElementRef) -> String {
 impl ModuleTrait for Module {
     fn get_links(args: ArgsGetLinks) -> Result<String, String> {
         let result = HttpModule::get(&ArgsGet {
-            url: args.uri.clone(),
+            url: args.url.clone(),
             request: Some(HttpRequest{
                 response_type: HttpResponseType::TEXT,
                 headers: None,
@@ -37,7 +37,7 @@ impl ModuleTrait for Module {
             }
         }
 
-        Ok(links.join(", "))
+        Ok(links.join("\n"))
     }
 
     fn get_text(args: ArgsGetText) -> Result<String, String> {
@@ -70,6 +70,6 @@ impl ModuleTrait for Module {
             }
         }
 
-        Ok(text_vec.join(" ").trim().to_string())
+        Ok(text_vec.join("\n"))
     }
 }

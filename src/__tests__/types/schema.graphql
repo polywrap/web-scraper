@@ -1,1 +1,1 @@
-#import * into Template from "wrap://ens/sample.eth"
+#import * into WebScraper from "wrap://wrapscan.io/polywrap/web-scraper"

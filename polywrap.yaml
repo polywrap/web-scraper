@@ -1,4 +1,4 @@
-format: 0.3.0
+format: 0.5.0
 project:
   name: web-scraper
   type: wasm/rust
@@ -6,4 +6,4 @@ source:
   module: ./Cargo.toml
   schema: ./polywrap.graphql
 extensions:
-  build: ./polywrap.build.yaml
+  docs: ./polywrap.docs.yaml
